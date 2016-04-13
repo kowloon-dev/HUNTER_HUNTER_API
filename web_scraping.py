@@ -65,6 +65,7 @@ class GetWebsite:
         for line in scraped_code:
             if self.title in line:
                 title_check_result = 1
+                log_control.logging.info("Title found! (Relevant HTML code= " + str(line) + ")")
                 break
             else:
                 title_check_result = 0
