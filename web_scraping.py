@@ -32,36 +32,36 @@ class GetWebsite:
         retry_count = 0
         while True:
             # GET Website
-            get_result = requests.get(self.url)
+            self.get_result = requests.get(self.url)
 
             # Change encoding
             # "ISO-8859-1"(default) to "UTF-8"
-            get_result.encoding = 'UTF-8'
+            self.get_result.encoding = 'UTF-8'
 
             # If the status code is "200" or retry_count has reached "retry_max",
             # come out of this loop.
-            if get_result.status_code == 200:
-                log_control.logging.debug(self.url + " GET succeeded.(STATUS CODE= " + str(get_result.status_code) + ")")
+            if self.get_result.status_code == 200:
+                log_control.logging.debug(self.url + " GET succeeded.(STATUS CODE= " + str(self.get_result.status_code) + ")")
                 break
             elif retry_count >= self.retry_max:
                 log_control.logging.error(self.url + " It has reached retry_max. Give up getting website... ")
                 break
 
-            log_control.logging.debug(self.url + " GET failed.(STATUS CODE= " + str(get_result.status_code) + "). Waiting for retry...")
+            log_control.logging.debug(self.url + " GET failed.(STATUS CODE= " + str(self.get_result.status_code) + "). Waiting for retry...")
 
             # Add 1 to "retry_count", empty "get_result", and sleep in random seconds.
             retry_count += 1
-            get_result = ""
+            self.get_result = ""
             time.sleep(random.randint(self.retry_sleep_min,self.retry_sleep_max))
 
+    def scraping(self):
         # Parse the html code.
-        soup = BeautifulSoup(get_result.text, "html.parser")
+        soup = BeautifulSoup(self.get_result.text, "html.parser")
+
         # Find the title class.
         scraped_code = soup.findAll(self.title_tag, class_=self.title_class)
 
-        print(scraped_code)
-
-        # Seek textline which contains title.
+        # Seek textline which contains target title.
         for line in scraped_code:
             if self.title in line:
                 title_check_result = 1
@@ -69,9 +69,18 @@ class GetWebsite:
             else:
                 title_check_result = 0
 
+        # Open a result file.
+        result_file = open(self.result_file, 'w')
+
+        # Write the result of scraping to result_file.
+        result_file.write("%s" % (title_check_result))
+
+        result_file.close()
+
         # degug
         print(self.title)
         print(title_check_result)
 
 gw = GetWebsite()
 gw.get_website()
+gw.scraping()
