@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import config_import as ci
 import logging
 import traceback
+
+from app import config_import as ci
 
 try:
     logging_level = ci.logging_level

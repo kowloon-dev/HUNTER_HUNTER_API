@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import config_import as ci
-import log_control
-import requests
-import time
-from bs4 import BeautifulSoup
 import random
+import time
 import traceback
+
+import requests
+from bs4 import BeautifulSoup
+
+from app import config_import as ci, log_control
 
 
 class GetWebsite:

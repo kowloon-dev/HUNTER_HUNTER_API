@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from os import pardir
+from os.path import dirname
+from os.path import sep
 import configparser
 import logging
 import traceback
 
-# Reading config file
+# Construct config_file path & read config file
 try:
+    pardir_path = dirname(__file__) + sep + pardir
+    config_file = pardir_path + "/config/config.ini"
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read(config_file)
 except:
     logging.error(traceback.format_exc())
     raise
