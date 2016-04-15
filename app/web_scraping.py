@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import codecs
 import random
 import time
 import traceback
-
 import requests
+import datetime
 from bs4 import BeautifulSoup
 
 from app import config_import as ci, log_control
@@ -56,6 +57,10 @@ class GetWebsite:
             time.sleep(random.randint(self.retry_sleep_min,self.retry_sleep_max))
 
     def scraping(self):
+
+        # Get date
+        today = datetime.date.today()
+
         # Parse the html code.
         soup = BeautifulSoup(self.get_result.text, "html.parser")
 
@@ -65,24 +70,36 @@ class GetWebsite:
         # Seek textline which contains target title.
         for line in scraped_code:
             if self.title in line:
-                title_check_result = 1
-                log_control.logging.info("Title found! (Relevant HTML code= " + str(line) + ")")
+                title_check_result = "True"
+                log_control.logging.info("Title found! (Relevant HTML code: " + str(line) + ")")
                 break
             else:
-                title_check_result = 0
+                title_check_result = "False"
 
-        # Open a result file.
-        result_file = open(self.result_file, 'w')
+        # Open result file.
+        result_file = codecs.open(self.result_file, 'w', 'utf-8')
+        #result_file = open(self.result_file, 'w')
 
         # Write the result of scraping to result_file.
-        result_file.write("%s" % (title_check_result))
+        result_file.write("%s\n%s\n%s" % (today,self.title,title_check_result))
 
         result_file.close()
 
-        # degug
-        print(self.title)
-        print(title_check_result)
+        # Open result file & read each line
+        result_file = codecs.open(self.result_file, 'r', 'utf-8')
+        line = result_file.readlines()
 
+        date  = str(line[0]).rstrip("\n")
+        title = str(line[1]).rstrip("\n")
+        status = str(line[2]).rstrip("\n")
+        print(date)
+        print(title)
+        print(status)
+
+
+# Execute functions
 gw = GetWebsite()
 gw.get_website()
 gw.scraping()
+
+exit()

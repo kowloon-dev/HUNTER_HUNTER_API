@@ -28,11 +28,13 @@ title =           config.get('GetWebsite', 'title')
 retry_sleep_min = int(config.get('GetWebsite', 'retry_sleep_min'))
 retry_sleep_max = int(config.get('GetWebsite', 'retry_sleep_max'))
 retry_max =       int(config.get('GetWebsite', 'retry_max'))
-result_file =           config.get('GetWebsite', 'result_file')
+result_file_dir = pardir_path + "/log/"
+result_file =     result_file_dir + config.get('GetWebsite', 'result_file')
 
 # [Logging]
 logging_level = config.get('Logging', 'logging_level')
-log_filename =  config.get('Logging', 'log_filename')
+log_dir = pardir_path + "/log/"
+log_filename = log_dir + config.get('Logging', 'log_filename')
 
 
 # ------------  Construct Flask Parameters  ------------
