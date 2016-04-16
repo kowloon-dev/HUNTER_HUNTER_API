@@ -8,8 +8,7 @@ import traceback
 import requests
 import datetime
 from bs4 import BeautifulSoup
-
-from app import config_import as ci, log_control
+import config_import as ci, log_control
 
 
 class GetWebsite:
