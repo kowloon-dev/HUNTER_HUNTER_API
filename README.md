@@ -24,7 +24,7 @@ APIエンドポイントにGETメソッドでリクエストすると、JSON形�
 
 +   `date` :  
     掲載状況を確認した日付を"YYYY-MM-DD"形式で返します。  
-    API利用者はこの日付を基に、情報の新旧を判断します。  
+    この日付情報を基に、API利用者が情報の新旧を判断できることを目的としています。  
     (掲載状況の確認処理は[app/web_scraping.py](https://github.com/kowloon-dev/HUNTER_HUNTER_API/blob/master/app/web_scraping.py)で自動化されています)
 
 +   `status` :  
@@ -33,7 +33,7 @@ APIエンドポイントにGETメソッドでリクエストすると、JSON形�
 
 +   `title` :  
     確認対象の作品タイトルを返します。  
-    Unicodeエスケープされた文字列で応答します。
+    Unicodeエスケープされた文字列です。
 
 
 ## 補足
