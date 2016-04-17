@@ -8,7 +8,8 @@ import traceback
 import requests
 import datetime
 from bs4 import BeautifulSoup
-import config_import as ci, log_control
+import config_import as ci
+import log_control
 
 
 class GetWebsite:
@@ -31,6 +32,7 @@ class GetWebsite:
     def get_website(self):
 
         retry_count = 0
+
         while True:
             # GET Website
             self.get_result = requests.get(self.url)
@@ -96,7 +98,7 @@ class GetWebsite:
         print(status)
 
 
-# Execute functions
+# Create Instance and execute functions
 gw = GetWebsite()
 gw.get_website()
 gw.scraping()

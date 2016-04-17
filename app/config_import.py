@@ -31,6 +31,17 @@ retry_max =       int(config.get('GetWebsite', 'retry_max'))
 result_file_dir = pardir_path + "/log/"
 result_file =     result_file_dir + config.get('GetWebsite', 'result_file')
 
+# [Mail]
+api_url =       config.get('Mail', 'api_url')
+smtp_host =     config.get('Mail', 'smtp_host')
+smtp_port =     config.get('Mail', 'smtp_port')
+local_host =    config.get('Mail', 'local_host')
+smtpauth_id =   config.get('Mail', 'smtpauth_id')
+smtpauth_pass = config.get('Mail', 'smtpauth_pass')
+from_addr =     config.get('Mail', 'from_addr')
+to_addr =       config.get('Mail', 'to_addr')
+mail_title =    config.get('Mail', 'mail_title')
+
 # [Logging]
 logging_level = config.get('Logging', 'logging_level')
 log_dir = pardir_path + "/log/"
