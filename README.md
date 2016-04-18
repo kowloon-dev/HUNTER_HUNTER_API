@@ -90,7 +90,7 @@ $ cd /data/
 $ pwd
 /data
 
-$ git clone https://github.com/kowloon-dev/HUNTER_HUNTER_API.git
+$ sudo git clone https://github.com/kowloon-dev/HUNTER_HUNTER_API.git
 $ ls -l
 drwxr-xr-x 5 root root 4096 Apr 16 14:51 HUNTER_HUNTER_API
 
