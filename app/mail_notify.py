@@ -5,35 +5,27 @@ from os import pardir
 from os.path import dirname
 from os.path import sep
 import logging
+import configparser
 import traceback
 import requests
 import log_control
 import smtplib
 from email.mime.text import MIMEText
 
-import configparser
-
-# Construct config_file path & read config file
-try:
-    pardir_path = dirname(__file__) + sep + pardir
-    config_file = pardir_path + "/config/config_mail.ini"
-    config = configparser.ConfigParser()
-    mailconfig = config.read(config_file)
-except:
-    logging.error(traceback.format_exc())
-    raise
-
 
 class CheckCarried:
 
     def __init__(self):
+        # Construct config_file path & read config file
         try:
-            self.api_url = mailconfig.api_url
+            pardir_path = dirname(__file__) + sep + pardir
+            config_file = pardir_path + "/config/config_mail.ini"
+            config = configparser.ConfigParser()
+            mailconfig = config.read(config_file)
+            self.api_url = mailconfig.get('Mail', 'api_url')
         except:
-            err = "Read config failed.\n"
-            log_control.logging.error(err + traceback.format_exc())
+            logging.error(traceback.format_exc())
             raise
-
 
     def get_api(self):
 
