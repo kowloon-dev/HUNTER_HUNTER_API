@@ -141,8 +141,7 @@ $ sudo uwsgi --ini /data/HUNTER_HUNTER_API/config/config_uwsgi.ini &
 
 Webのスクレイピングが成功するか確認  
 ```
-cd (デプロイ先ディレクトリ)/app
-sudo python3 web_scraping.py
+sudo /data/HUNTER_HUNTER_API/app/python3 web_scraping.py  <--絶対パスで指定
 ls ../log/check_result.txt
 check_result.txt         <--- check.reslut.txtが生成されていること
 cat ../log/check_result.txt
