@@ -34,7 +34,8 @@ APIエンドポイントにGETメソッドでリクエストすると、JSON形�
 
 +   `title` :  
     確認対象の作品タイトルを返します。  
-    Unicodeエスケープされた文字列ですので、マルチバイト文字の部分は「\u(コード番号)」となります。
+    Unicodeエスケープされた文字列ですので、マルチバイト文字の部分は「\u(コード番号)」となります。  
+    上記の例ですと「×」の文字が[Unicode番号00d7](http://www.fileformat.info/info/unicode/char/00d7/index.htm)として表示されています。
 
 
 ## カスタマイズ
@@ -54,6 +55,11 @@ APIエンドポイントにGETメソッドでリクエストすると、JSON形�
 - uwsgi (2.0.12)
 - Flask (0.10.1)
 - Beautifulsoup4 (4.4.1)
+
+以下のOS環境にて動作確認済みです。
+
+- Mac OS X(10.10.5)
+- Ubuntu14.04 
 
 
 ### 各コンポーネントのインストール
@@ -138,9 +144,9 @@ Webのスクレイピングが成功するか確認
 cd (デプロイ先ディレクトリ)/app
 sudo python3 web_scraping.py
 ls ../log/check_result.txt
-check_result.txt   <--- check.reslut.txtが生成されていること
+check_result.txt         <--- check.reslut.txtが生成されていること
 cat ../log/check_result.txt
-2016-04-18        <--- 結果が記入されていること
+2016-04-18               <--- 結果が記入されていること
 HUNTER×HUNTER
 True
 ```
