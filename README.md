@@ -177,3 +177,70 @@ sudo crontab -e
 00 12 * * 1 python3 /data/HUNTER_HUNTER_API/app/web_scraping.py
 ```
 
+---
+
+## 他サービスでの利用例
+
+『HUNTER×HUNTERの掲載状況』を本API層で抽象化できましたので、外部サービスからの利用が容易となりました。  
+早速利用してみます。  
+
+### HUNTER×HUNTER掲載通知メール
+
+例として**本APIを叩いてTrueが返ってきたらメールで通知するサービス**を作りました。  
+
+
+[app/mail_notify.py](https://github.com/kowloon-dev/HUNTER_HUNTER_API/blob/master/app/mail_notify.py)をcron等で週1回定期実行することで、
+**HUNTER×HUNTERのジャンプ掲載状況**がメール通知されます。
+
+
+実際にメール通知された例  
+
+![HUNTER_mail_notify](http://kowloonet.org/github-files/HUNTER_mail_notify.png)
+
+### 使い方
+[config/config_mail.ini](https://github.com/kowloon-dev/HUNTER_HUNTER_API/blob/master/config/config_mail.ini)内の
+**[Mail]**セクションに値を指定します。  
+各利用者のメール環境に合わせて修正してください。  
+
+[Mail]セクションの解説
+
++   `api_url` :  
+    問い合わせを行うAPIエンドポイント。  
+    サンプルではデモサイトのAPIエンドポイントURLを指定してあり、このまま変更しなくても利用可能です。
+
++   `smtp_host` :  
+    SMTPホスト名を指定します。
+
++   `smtp_port` :  
+    SMTPポート番号。  
+    SMTP認証を使う想定でサブミッションポート"587"を指定してあります。
+
++   `local_host` :  
+    SMTPサーバとの通信時に名乗るローカルホスト名。
+
++   `smtpauth_id` :  
+    SMTPAUTHのユーザIDを指定します。
+
++   `smtpauth_pass` :  
+    SMTPAUTHのパスワードを指定します。
+
++   `from_addr` :  
+    通知メールの送信元アドレス。
+
++   `to_addr` :  
+    通知メールの宛先アドレス。
+
++   `mail_title` :  
+    メールのタイトルを指定します。
+    サンプルでは「ジャンプ掲載通知」としてあります。
+
+
+あとはcronで定期実行するように指定します。  
+デモサイトの情報は毎週月曜12時に更新されるようにしてありますので、  
+その少し後の時間を指定します。
+
+```
+sudo crontab -e
+
+05 12 * * 1 python3 /data/HUNTER_HUNTER_API/app/mail_notify.py
+```
