@@ -7,7 +7,7 @@ import config_import as ci
 
 app = Flask(__name__)
 
-@app.route('/api/jump/1.0/', methods=['GET'])
+@app.route('/jump-api/1.0/', methods=['GET'])
 
 def api_response():
 
