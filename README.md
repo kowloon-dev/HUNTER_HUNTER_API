@@ -169,6 +169,6 @@ APIのレスポンスが表示されることを確認します。
 ```
 sudo crontab -e
 
-00 12 * * 1 sudo python3 /data/HUNTER_HUNTER_API/app/web_scraping.py
+00 12 * * 1 python3 /data/HUNTER_HUNTER_API/app/web_scraping.py
 ```
 
