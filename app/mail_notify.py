@@ -80,8 +80,6 @@ class MailSend:
             logging.error(traceback.format_exc())
             raise
 
-        print(self.smtp_host)
-
     def mail_send(self, mail_body):
 
         # Establish SMTP connection.(with SMTPAUTH)
