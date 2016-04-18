@@ -133,7 +133,6 @@ $ sudo uwsgi --ini /data/HUNTER_HUNTER_API/config/config_uwsgi.ini &
 
 ### テスト実行
 
-
 Webのスクレイピングが成功するか確認  
 ```
 cd (デプロイ先ディレクトリ)/app
@@ -159,4 +158,17 @@ APIのレスポンスが表示されることを確認します。
 }
 ```
 
+### 定期実行登録
+
+週に1回、月曜日に[app/web_scraping.py](https://github.com/kowloon-dev/HUNTER_HUNTER_API/blob/master/app/web_scraping.py)を
+自動実行するようcronに登録します。
+
+公式サイトが更新されるのは月曜の午前11時頃のように見受けられましたので、
+本デモサイトでは毎週月曜12:00に実行するように指定しています。
+
+```
+sudo crontab -e
+
+00 12 * * 1 sudo python3 /data/HUNTER_HUNTER_API/app/web_scraping.py
+```
 
