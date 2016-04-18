@@ -82,7 +82,7 @@ class GetWebsite:
         #result_file = open(self.result_file, 'w')
 
         # Write the result of scraping to result_file.
-        result_file.write("%s\n%s\n%s" % (today,self.title,title_check_result))
+        result_file.write("%s\n%s\n%s\n" % (today,self.title,title_check_result))
 
         result_file.close()
 
