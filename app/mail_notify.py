@@ -20,9 +20,9 @@ class CheckCarried:
         try:
             pardir_path = dirname(__file__) + sep + pardir
             config_file = pardir_path + "/config/config_mail.ini"
-            config = configparser.ConfigParser()
-            mailconfig = config.read(config_file)
-            self.api_url = mailconfig.get('Mail', 'api_url')
+            self.config = configparser.ConfigParser()
+            self.config.read(config_file)
+            self.api_url = self.config.get('Mail', 'api_url')
         except:
             logging.error(traceback.format_exc())
             raise
@@ -65,14 +65,14 @@ class CheckCarried:
 class MailSend:
     def __init__(self):
         try:
-            self.smtp_host = mailconfig.smtp_host
-            self.smtp_port = mailconfig.smtp_port
-            self.local_host = mailconfig.local_host
-            self.auth_id = mailconfig.smtpauth_id
-            self.auth_pass = mailconfig.smtpauth_pass
-            self.from_addr = mailconfig.from_addr
-            self.to_addr = mailconfig.to_addr
-            self.mail_title = mailconfig.mail_title
+            self.smtp_host = self.config.get('Mail', 'smtp_host')
+            self.smtp_port = self.config.get('Mail', 'smtp_port')
+            self.local_host = self.config.get('Mail', 'local_host')
+            self.auth_id = self.config.get('Mail', 'smtpauth_id')
+            self.auth_pass = self.config.get('Mail', 'smtpauth_pass')
+            self.from_addr = self.config.get('Mail', 'from_addr')
+            self.to_addr = self.config.get('Mail', 'to_addr')
+            self.mail_title = self.config.get('Mail', 'mail_title')
         except:
             err = "Read config failed.\n"
             log_control.logging.error(err + traceback.format_exc())
