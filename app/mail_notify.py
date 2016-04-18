@@ -13,22 +13,21 @@ import smtplib
 from email.mime.text import MIMEText
 
 
-class CheckCarried:
+class Check:
 
     def __init__(self):
         # Construct config_file path & read config file
         try:
             pardir_path = dirname(__file__) + sep + pardir
             config_file = pardir_path + "/config/config_mail.ini"
-            self.config = configparser.ConfigParser()
-            self.config.read(config_file)
-            self.api_url = self.config.get('Mail', 'api_url')
+            config = configparser.ConfigParser()
+            config.read(config_file)
+            self.api_url = config.get('Mail', 'api_url')
         except:
             logging.error(traceback.format_exc())
             raise
 
     def get_api(self):
-
         # GET API
         self.get_result = requests.get(self.api_url)
 
@@ -42,7 +41,6 @@ class CheckCarried:
 
 
     def check(self):
-
         # Parse the response with json()
         json_result = self.get_result.json()
 
@@ -64,19 +62,25 @@ class CheckCarried:
 
 class MailSend:
     def __init__(self):
+        # Construct config_file path & read config file
         try:
-            self.smtp_host = self.config.get('Mail', 'smtp_host')
-            self.smtp_port = self.config.get('Mail', 'smtp_port')
-            self.local_host = self.config.get('Mail', 'local_host')
-            self.auth_id = self.config.get('Mail', 'smtpauth_id')
-            self.auth_pass = self.config.get('Mail', 'smtpauth_pass')
-            self.from_addr = self.config.get('Mail', 'from_addr')
-            self.to_addr = self.config.get('Mail', 'to_addr')
-            self.mail_title = self.config.get('Mail', 'mail_title')
+            pardir_path = dirname(__file__) + sep + pardir
+            config_file = pardir_path + "/config/config_mail.ini"
+            config = configparser.ConfigParser()
+            config.read(config_file)
+            self.smtp_host = config.get('Mail', 'smtp_host')
+            self.smtp_port = config.get('Mail', 'smtp_port')
+            self.local_host = config.get('Mail', 'local_host')
+            self.auth_id = config.get('Mail', 'smtpauth_id')
+            self.auth_pass = config.get('Mail', 'smtpauth_pass')
+            self.from_addr = config.get('Mail', 'from_addr')
+            self.to_addr = config.get('Mail', 'to_addr')
+            self.mail_title = config.get('Mail', 'mail_title')
         except:
-            err = "Read config failed.\n"
-            log_control.logging.error(err + traceback.format_exc())
+            logging.error(traceback.format_exc())
             raise
+
+        print(self.smtp_host)
 
     def mail_send(self, mail_body):
 
@@ -99,7 +103,7 @@ class MailSend:
 
 
 # Create Instance and execute functions
-mn = CheckCarried()
+mn = Check()
 mn.get_api()
 mn.check()
 
