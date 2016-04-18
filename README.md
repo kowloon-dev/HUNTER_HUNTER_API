@@ -52,7 +52,7 @@ APIエンドポイントにGETメソッドでリクエストすると、JSON形�
 
 - Nginx (1.4.6 (Ubuntu))
 - Python3 (3.4.3)
-- uwsgi (2.0.12)
+- uWSGI (2.0.12)
 - Flask (0.10.1)
 - Beautifulsoup4 (4.4.1)
 
@@ -122,7 +122,17 @@ nginxの設定ファイルに以下を追記。
 ```
 
 Webサーバの「/jump-api」パスへのアクセスはローカルホストの8000番に渡すように指定しています。  
-8000番ではuWSGIが待ち受けており、Pythonに処理が渡ります。
+8000番ではuWSGIが待ち受けており、Pythonに処理が渡ります。  
+  
+【重要】  
+デプロイ先の環境で既にポート8000番が使用されている場合にはポート重複が発生します。  
+その場合は[config/config_uwsig.ini](https://github.com/kowloon-dev/HUNTER_HUNTER_API/blob/master/config/config_uwsgi.ini)内の
+**socket = localhost:8000**のポート番号を変更して下さい。  
+nginxの設定ファイルのポート番号部分も合わせて修正して下さい。
+
+
+本当はポート番号を消費せずにsocketファイル渡しにしたかったのですが、  
+どうしてもうまく動かず諦めた経緯があります。  
 
 Nginxを再起動  
 ```
